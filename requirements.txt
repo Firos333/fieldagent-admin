@@ -12,3 +12,4 @@ whitenoise
 pyrebase
 pyrebase4
 firebase-admin
+psycopg2
