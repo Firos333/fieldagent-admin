@@ -12,4 +12,4 @@ whitenoise
 pyrebase
 pyrebase4
 firebase-admin
-psycopg2
+psycopg2==2.8
