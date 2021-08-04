@@ -11,3 +11,4 @@ gunicorn
 whitenoise
 pyrebase
 pyrebase4
+firebase-admin
