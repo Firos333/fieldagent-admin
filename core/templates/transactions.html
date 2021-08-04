@@ -1,0 +1,108 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Transactions {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+      <div class="d-block mb-4 mb-md-0">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="#">Field Agent Day Wise result</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+              </ol>
+          </nav>
+          <h2 class="h4">Orders </h2>
+  
+      </div>
+      <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
+              <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
+          </div>
+      </div>
+  </div>
+  <div class="table-settings mb-4">
+      <div class="row align-items-center justify-content-between">
+          <div class="col col-md-6 col-lg-3 col-xl-4">
+            
+          </div>
+        
+               
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="card card-body shadow-sm table-wrapper table-responsive">
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                  <th>Date</th>
+                  <th>District</th>						
+                  <th>Shop/Services</th>
+                  <th>Phone Number</th>
+                  <th>Plan</th>
+                  <th>Category</th>
+                  <th>Sub Category</th>
+                  <th>Time</th>
+                  <th>Pin</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Item -->
+              
+              {% for item in context %}   
+ 
+              <tr>
+                  <td>
+                      <a href="#" class="fw-bold">
+
+                        {{item.createdDate}}
+                      </a>
+                  </td>
+                  <td>
+                      <span class="fw-normal">  {{item.District}}</span>
+                  </td>
+                
+              
+                  <td><span class="fw-bold">   {{item.Shop_ServiceName}}</span></td>
+                  <td><span class="fw-bold">   {{item.Contact_No}}</span></td>
+                  <td><span class="fw-bold">   {{item.Subscribed_Plan}}</span></td>
+                  <td><span class="fw-bold">   {{item.Category}}</span></td>
+                  <td><span class="fw-bold">   {{item.SubCAtegory}}</span></td>
+                  <td><span class="fw-bold">   {{item.createdTime}}</span></td>
+                  <td><span class="fw-bold">   {{item.PinCode}}</span></td>
+               
+                  <td>
+                      <div class="btn-group">
+                          <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class="icon icon-sm">
+                                  <span class="fas fa-ellipsis-h icon-dark"></span>
+                              </span>
+                              <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu py-0">
+                              <a class="dropdown-item rounded-top" href="#"><span class="fas fa-eye me-2"></span>View Details</a>
+                              <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
+                              <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+                          </div>
+                      </div>
+                  </td>
+              </tr>
+            {% endfor %}
+    
+                                  
+          </tbody>
+      </table>
+      
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,86 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="card-header bg-transparent pb-5">
+    <div class="text-muted text-center mt-2 mb-3">
+     Marketing Staff's Performance by Day
+    </div>
+  </div>
+  <br>
+  <br>
+
+
+{% for message in messages %}
+<p style="color:red" align='center'>{{message}}</p></div>
+{% endfor %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<form action="/" method="POST">
+  {% csrf_token %}
+  <div class="container">
+      <div class="row justify-content-center">
+       <div class="form-group col-md-4 col-md-offset-5 align-center ">
+      
+        <label for="exampleInputPassword1"> Select state</label>
+        <select name="state" class="form-control" id="state">
+          <option value="Kerala">Kerala</option>
+          <option value="Tamilnadu">Tamilnadu</option>
+  
+        </select> <br>
+        <label for="exampleInputPassword1"> Select District</label>
+        <select name="district" class="form-control" id="district">
+          <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+          <option value="Kollam">Kollam</option>
+          <option value="Alappuzha">Alappuzha</option>
+          <option value="Pathanamthitta">Pathanamthitta</option>
+          <option value="Kottayam">Kottayam</option>
+          <option value="Idukki">Idukki</option>
+          <option value="Ernakulam">Ernakulam</option>
+          <option value="Thrissur">Thrissur</option>
+          <option value="Palakkad">Palakkad</option>
+          <option value="Malappuram">Malappuram</option>
+          <option value="Kozhikode">Kozhikode</option>
+          <option value="Wayanadu">Wayanadu</option>
+          <option value="Kannur">Kannur</option>
+          <option value="Kasaragod">Kasaragod</option>
+
+  
+        </select>
+        <br>
+
+  <div class="form-group">
+      <label for="exampleInputPassword1">Date</label>
+      <input type="date" id="date" name="date"  class="form-control">
+    </div><br>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Marketing Staff Id</label>
+      <input type="text" class="form-control" id="Marketing_staff_id" placeholder="Enter staff Id" name="Marketing_staff_id">
+    </div>
+     
+
+<br>
+
+       
+
+  <button type="submit" class="btn btn-primary" >Submit</button>
+
+</div>
+
+</div> 
+
+</form>
+         
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
