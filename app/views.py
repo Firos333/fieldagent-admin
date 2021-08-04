@@ -12,6 +12,7 @@ import pyrebase
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from django.contrib.auth.decorators import user_passes_test
 
 cred = credentials.Certificate("./fieldagent-app-01252fe62f76.json")
 firebase_admin.initialize_app(cred)
@@ -38,7 +39,7 @@ config = {
 
 
 
-
+@user_passes_test(lambda u: u.is_staff)
 @login_required(login_url="/login/")
 def index(request):
 

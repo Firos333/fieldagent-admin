@@ -19,26 +19,35 @@
           <h2 class="h4">Orders </h2>
   
       </div>
-      <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
-          </div>
-      </div>
-  </div>
+      
   <div class="table-settings mb-4">
       <div class="row align-items-center justify-content-between">
           <div class="col col-md-6 col-lg-3 col-xl-4">
             
           </div>
         
-               
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group">
+                
+                <button type="button" class="btn btn-sm btn-outline-primary" id="btnExport" value="Export" onclick="Export()">Export to excel</button>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+          function Export() {
+              $("#tblCustomers").table2excel({
+                  filename: "Order_by_days.xls"
+              });
+          }
+        </script>
+        </div>
               </div>
           </div>
       </div>
   </div>
   <div class="card card-body shadow-sm table-wrapper table-responsive">
-      <table class="table table-hover">
+      <table class="table table-hover" id="tblCustomers">
           <thead>
               <tr>
                   <th>Date</th>
@@ -50,7 +59,7 @@
                   <th>Sub Category</th>
                   <th>Time</th>
                   <th>Pin</th>
-                  <th>Action</th>
+                  <!-- <th>Action</th> -->
               </tr>
           </thead>
           <tbody>
@@ -79,7 +88,7 @@
                   <td><span class="fw-bold">   {{item.PinCode}}</span></td>
                
                   <td>
-                      <div class="btn-group">
+                      <!-- <div class="btn-group">
                           <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span class="icon icon-sm">
                                   <span class="fas fa-ellipsis-h icon-dark"></span>
@@ -91,7 +100,7 @@
                               <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
                               <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
                           </div>
-                      </div>
+                      </div> -->
                   </td>
               </tr>
             {% endfor %}
@@ -100,8 +109,8 @@
           </tbody>
       </table>
       
-  </div>
-
+  </div><br><br>
+  
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
