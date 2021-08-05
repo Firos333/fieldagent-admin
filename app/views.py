@@ -58,6 +58,26 @@ def index(request):
     html_template = loader.get_template( 'dashboard.html' )
     return HttpResponse(html_template.render(context, request))
 
+@user_passes_test(lambda u: u.is_staff)
+@login_required(login_url="/login/")
+def staffs(request):
+
+ 
+    docs_ref = db.collection('users')
+    docs = docs_ref.stream()
+    list1=[]
+    
+    for doc in docs:
+        dictionary =doc.to_dict()
+        list1.append(dictionary)
+        print(list1)
+
+
+    html_template = loader.get_template( 'complete_users.html' )
+    return HttpResponse(html_template.render({'context':list1}, request)) 
+
+   
+
 
 @user_passes_test(lambda u: u.is_staff)
 @login_required(login_url="/login/")

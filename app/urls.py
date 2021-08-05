@@ -11,6 +11,7 @@ urlpatterns = [
     # The home page
     path('', views.index, name='home'),
     path('search', views.search, name='search'),
+    path('staffs', views.staffs, name='staffs'),
 
 
     # Matches any html file
