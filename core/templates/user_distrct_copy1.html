@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Transactions {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<head>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+       
+        function Export() {
+            $("#tblCustomers").table2excel({
+                filename: "Userdetails_by_district.xls"
+            });
+        }
+      </script>
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
+    <script>
+        function display(test) {
+            $("#dialog").dialog();
+        }
+    </script> -->
+    <style>   
+        input[type="value"]:focus{
+            box-shadow: 0 0 0 rgb(255, 255, 255);
+       }
+       
+    </style>
+    
+</head>
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+      <div class="d-block mb-4 mb-md-0">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="#">Marketing Staff Available at This District</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Staff Details</li>
+              </ol>
+          </nav>
+          <h2 class="h4">Staff Details </h2>
+  
+      </div>
+      
+  <div class="table-settings mb-4">
+      <div class="row align-items-center justify-content-between">
+          <div class="col col-md-6 col-lg-3 col-xl-4">
+            
+          </div>
+        
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group">
+                
+                <button type="button" class="btn btn-sm btn-outline-primary" id="btnExport" value="Export" onclick="Export()">Export to excel</button>
+            </div>
+        </div>
+     
+        </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="card card-body shadow-sm table-wrapper table-responsive">
+      <table class="table table-hover" id="tblCustomers">
+          <thead>
+              <tr >
+                  <th>Name</th>
+                  <th>Photo</th>						
+                  <th>District</th>
+                  <th>ID</th>
+                  <th>Action</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Item -->
+              
+              {% for item in context %}   
+ 
+              <tr> 
+                  <td>
+                      <a class="fw-bold">
+
+                        {{item.nickname}}
+                      </a>
+                  </td>
+                  <td>
+                    <img src="{{item.photoUrl}}" alt="" border=3 height=100 width=100>
+                 
+                  </td>
+                
+              
+                  <td><span class="fw-bold">   {{item.district}}</span></td>
+                  <td><span class="fw-bold">   {{item.id}}</span></td>
+
+                  
+                  
+                  <td>
+                
+                  <form action="/search" method="POST" >
+                    {% csrf_token %}
+                  
+                    <input type="hidden" id="district" name="district" value="{{item.district}}">
+                    <input type="hidden" id="name" name="name" value="{{item.nickname}}">
+                    <input type="hidden" id="state" name="state" value="Kerala">
+                    <input type="hidden" id="Marketing_staff_id" name="Marketing_staff_id" value="{{item.id}}">
+                   
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Go to profile</button>
+                  
+            
+                  </form>
+                </td>
+               
+                  <td>
+                
+                  </td>
+                
+     
+                </div>
+              </tr>
+
+
+      
+            {% endfor %}
+    
+                                  
+          </tbody>
+      </table>
+
+    
+      
+  </div><br><br>
+  
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

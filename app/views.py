@@ -21,16 +21,7 @@ db = firestore.client()
 
 
 
-config = {
-    "apiKey": "AIzaSyD7uYyEUdp0GIvqwXpdDjfzMD8q5NQRMvc",
-    "authDomain": "telegram-a501e.firebaseapp.com",
-    "databaseURL": "https://telegram-a501e-default-rtdb.firebaseio.com",
-    "projectId": "telegram-a501e",
-    "storageBucket": "telegram-a501e.appspot.com",
-    "messagingSenderId": "279661330491",
-    "appId": "1:279661330491:web:56d2b2d9fe993c32d39c1e",
-    
-}
+
 
 # firebase = pyrebase.initialize_app(config)
 # authe = firebase.auth()
@@ -46,6 +37,37 @@ def index(request):
     if request.method == 'POST':
         state = request.POST['state']
         district = request.POST['district']
+
+        docs_ref = db.collection('users')
+        docs = docs_ref.stream()
+        list_dict=[]
+        
+        for doc in docs:
+            dictionary =doc.to_dict()
+            if dictionary['district']== district:
+                list_dict.append(dictionary)
+ 
+
+
+        html_template = loader.get_template( 'user_distrct.html' )
+        return HttpResponse(html_template.render({'context':list_dict}, request)) 
+
+    context = {}
+    
+
+    html_template = loader.get_template( 'dashboard.html' )
+    return HttpResponse(html_template.render(context, request))
+
+
+@user_passes_test(lambda u: u.is_staff)
+@login_required(login_url="/login/")
+def search(request):
+
+   
+    if request.method == 'POST':
+        state = request.POST['state']
+        name = request.POST['name1']
+        district = request.POST['district']
         date = request.POST['date']
         date_=date.split('-')
         date_org= date_[2]+'-'+date_[1]+'-'+date_[0]
@@ -56,15 +78,19 @@ def index(request):
 
         docs_ref = db.collection('adminData').document(state).collection(district).document(date_org).collection(Marketing_staff_id)
         docs = docs_ref.get()
+
         list_dict=[]
 
-        print(state)
-        print(district)
-        print(date_org)
-        print(Marketing_staff_id)
+    
         for doc in docs:
-            list_dict.append(doc.to_dict())
-            print(doc)
+            dictionary=doc.to_dict()
+            dictionary['nickname']= name
+            dictionary['state']= state
+            dictionary['district']= district
+            dictionary['date']= date
+
+            list_dict.append(dictionary)
+  
         
     
    
@@ -72,13 +98,6 @@ def index(request):
         html_template = loader.get_template( 'transactions.html' )
         return HttpResponse(html_template.render({'context':list_dict}, request))   
     
-    # name=database.child('Data').child('name').get().val()
-
-    context = {}
-    context['segment'] = 'index'
-
-    html_template = loader.get_template( 'dashboard.html' )
-    return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
 def pages(request):

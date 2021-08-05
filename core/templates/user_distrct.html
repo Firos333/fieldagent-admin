@@ -1,0 +1,117 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Transactions {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<head>
+    <style>#wrapper {width: 278px;} 
+        #wrapper .container {max-width: 100%; display: block;}</style>
+        <body>
+
+  
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
+    <script>
+        function display(test) {
+            $("#dialog").dialog();
+        }
+    </script>
+    
+</head>
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+      <div class="d-block mb-4 mb-md-0">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="#">Marketing Staff Available at This District</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Staff Details</li>
+              </ol>
+          </nav>
+          <h2 class="h4">Staff Details </h2>
+  
+      </div>
+      
+ 
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="card card-body shadow-sm table-wrapper table-responsive">
+      <table class="table table-hover" id="tblCustomers">
+          <thead>
+              <tr >
+                  <th>Name</th>
+                  <th>Photo</th>						
+                  <th>District</th>
+                  <th>ID</th>
+                 
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Item -->
+              
+              {% for item in context %}   
+ 
+              <tr onclick="display('test');" >
+                  <td>
+                      <a class="fw-bold">
+
+                        {{item.nickname}}
+                      </a>
+                  </td>
+                  <td>
+                    <img src="{{item.photoUrl}}" alt="" border=3 height=100 width=100>
+                 
+                  </td>
+                
+              
+                  <td><span class="fw-bold">   {{item.district}}</span></td>
+                  <td><span class="fw-bold">   {{item.id}}</span></td>
+               
+                  <td>
+                
+                  </td>
+                  <div id="dialog" title="Select date" style="display:none">
+              
+                        <div class="modal-body" id="wrapper">
+                            <form action="search" method="POST">
+                                {% csrf_token %}
+                                <div class="container">
+                   
+                                <p> Select date and download the Shop/Service details added by {{item.nickname}} in Excel Format</p>
+                                <input type="date" id="date" name="date"  class="form-control">
+                                <br><br>
+                                <input type="hidden" id="name1" name="name1" value="{{item.nickname}}">
+                                <input type="hidden" id="district" name="district" value="{{item.district}}">
+                                <input type="hidden" id="state" name="state" value="Kerala">
+                                <input type="hidden" id="Marketing_staff_id" name="Marketing_staff_id" value="{{item.id}}">
+
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Search</button>
+                                
+                        
+                              </form>
+                        </div>
+                
+     
+                </div>
+              </tr>
+            {% endfor %}
+    
+                                  
+          </tbody>
+      </table>
+
+    
+      
+  </div><br><br>
+  
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

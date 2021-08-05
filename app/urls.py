@@ -10,6 +10,7 @@ urlpatterns = [
 
     # The home page
     path('', views.index, name='home'),
+    path('search', views.search, name='search'),
 
 
     # Matches any html file
