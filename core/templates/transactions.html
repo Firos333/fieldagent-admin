@@ -29,15 +29,14 @@
           <h2 class="h4">Orders</h2>
   
       </div>
-      
+    
  
-  
+<div class="table-settings mb-4">
+    
+    <div class="row align-items-center justify-content-between"></div>
   {% if context.0  %} 
-  <div class="table-settings mb-4">
-    <div class="row align-items-center justify-content-between">
-        <div class="col col-md-6 col-lg-3 col-xl-4">
-          
-        </div>
+
+  
       
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group">
@@ -60,9 +59,16 @@
       <h5 class="card-title">Date:{{context.0.createdDate}}</h5>
       <p class="card-text">State: {{context.0.state}}, District:{{context.0.district}}</p>
     </div>
-  </div>
+
   {% endif %}
+</div>
+</div>
 <br>
+
+{% for message in messages %}
+<p style="color:red" align='center'>{{message}}</p></div>
+{% endfor %}
+
   <div class="card card-body shadow-sm table-wrapper table-responsive">
       <table class="table table-hover" id="tblCustomers">
           <thead>
@@ -104,8 +110,8 @@
                   <td><span class="fw-bold">   {{item.createdTime}}</span></td>
                   <td><span class="fw-bold">   {{item.PinCode}}</span></td>
                
-                  <td>
-                      <!-- <div class="btn-group">
+                  <!-- <td>
+                      <div class="btn-group">
                           <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span class="icon icon-sm">
                                   <span class="fas fa-ellipsis-h icon-dark"></span>
@@ -117,8 +123,8 @@
                               <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
                               <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
                           </div>
-                      </div> -->
-                  </td>
+                      </div>
+                  </td> -->
               </tr>
             {% endfor %}
     

@@ -2,7 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
@@ -86,19 +86,27 @@ def search(request):
    
     if request.method == 'POST':
         state = request.POST['state']
+
         name = request.POST['name1']
         district = request.POST['district']
         date = request.POST['date']
+
+        if date == '':
+            messages.info(request,'No items available for this date')
+            html_template = loader.get_template( 'transactions.html' )
+            return HttpResponse(html_template.render({'context':''}, request)) 
+            
+
         date_=date.split('-')
         date_org= date_[2]+'-'+date_[1]+'-'+date_[0]
-
+        
         Marketing_staff_id = request.POST['Marketing_staff_id']
       
 
 
         docs_ref = db.collection('adminData').document(state).collection(district).document(date_org).collection(Marketing_staff_id)
         docs = docs_ref.get()
-
+    
         list_dict=[]
 
     
@@ -110,9 +118,14 @@ def search(request):
             dictionary['date']= date
 
             list_dict.append(dictionary)
+            print(doc)
   
         
-    
+        if list_dict==[]:
+            messages.info(request,'He not added anything on this date, May be he is in leave')
+            html_template = loader.get_template( 'transactions.html' )
+            return HttpResponse(html_template.render({'context':''}, request)) 
+
    
 
         html_template = loader.get_template( 'transactions.html' )
