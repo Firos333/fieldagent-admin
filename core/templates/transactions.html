@@ -82,6 +82,7 @@
                   <th>Sub Category</th>
                   <th>Time</th>
                   <th>Pin</th>
+                  <th>Verification</th>
                   <!-- <th>Action</th> -->
               </tr>
           </thead>
@@ -109,7 +110,30 @@
                   <td><span class="fw-bold">   {{item.SubCategory}}</span></td>
                   <td><span class="fw-bold">   {{item.createdTime}}</span></td>
                   <td><span class="fw-bold">   {{item.PinCode}}</span></td>
-               
+
+                  {% if item.isVerified == True %}
+                  <form action="search" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="name1" name="name" value="{{item.nickname}}">
+                    <input type="hidden" id="time_true" name="time_true" value="{{item.createdTime}}">
+                    <input type="hidden" id="date" name="date" value="{{item.createdDate}}">
+                    <input type="hidden" id="district" name="district" value="{{item.district}}">
+                    <input type="hidden" id="state" name="state" value="Kerala">
+                    <input type="hidden" id="Marketing_staff_id" name="Marketing_staff_id" value="{{item.id_user}}">
+                  <td><button type="submit" id="Verified" style="color: green" onclick="return confirm('Are you sure to proceed with Not Verified tag?')"> &nbsp;&nbsp; Verified &nbsp;&nbsp;</button></td>
+                </form>
+                  {% else %}
+                  <form action="search" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="name1" name="name" value="{{item.nickname}}">
+                    <input type="hidden" id="time_false" name="time_false" value="{{item.createdTime}}">
+                    <input type="hidden" id="date" name="date" value="{{item.createdDate}}">
+                    <input type="hidden" id="district" name="district" value="{{item.district}}">
+                    <input type="hidden" id="state" name="state" value="Kerala">
+                    <input type="hidden" id="Marketing_staff_id" name="Marketing_staff_id" value="{{item.id_user}}">
+                  <td><button type="submit" id="notVerified" style="color: red" onclick="return confirm('Are you sure to proceed with Verified tag?')"> Not Verified</button></td>
+                </form>
+                  {% endif %}
                   <!-- <td>
                       <div class="btn-group">
                           <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -119,7 +143,7 @@
                               <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu py-0">
-                              <a class="dropdown-item rounded-top" href="#"><span class="fas fa-eye me-2"></span>View Details</a>
+                              <a class="dropdown-item rounded-top" href="/"><span class="fas fa-eye me-2"></span>View Details</a>
                               <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
                               <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
                           </div>

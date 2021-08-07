@@ -85,51 +85,142 @@ def search(request):
 
    
     if request.method == 'POST':
-        state = request.POST['state']
+        if 'time_true' in request.POST:
+            state = request.POST['state']
+            time = request.POST['time_true']
+            name = request.POST['name']
+            district = request.POST['district']
+            date = request.POST['date']
+            Marketing_staff_id = request.POST['Marketing_staff_id']
 
-        name = request.POST['name1']
-        district = request.POST['district']
-        date = request.POST['date']
 
-        if date == '':
-            messages.info(request,'No items available for this date')
-            html_template = loader.get_template( 'transactions.html' )
-            return HttpResponse(html_template.render({'context':''}, request)) 
+            col_ref = db.collection('adminData').document(state).collection(district).document(date).collection(Marketing_staff_id)
+            col_reff = col_ref.get()
+
+            state_dist= state+': '+ district
             
+            col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
+            # col_reff2 = col_ref2.get()
 
-        date_=date.split('-')
-        date_org= date_[2]+'-'+date_[1]+'-'+date_[0]
+            for item in col_reff:
+                if item.id == time:
+                    doc = col_ref.document(item.id)
+                    doc2 = col_ref2.document(item.id)
+
+                    field_updates = {"isVerified": False}
+                    doc.update(field_updates)
+                    doc2.update(field_updates)
+
+            docs_ref = db.collection('adminData').document(state).collection(district).document(date).collection(Marketing_staff_id)
+            docs = docs_ref.get()
         
-        Marketing_staff_id = request.POST['Marketing_staff_id']
-      
+            list_dict=[]
 
-
-        docs_ref = db.collection('adminData').document(state).collection(district).document(date_org).collection(Marketing_staff_id)
-        docs = docs_ref.get()
-    
-        list_dict=[]
-
-    
-        for doc in docs:
-            dictionary=doc.to_dict()
-            dictionary['nickname']= name
-            dictionary['state']= state
-            dictionary['district']= district
-            dictionary['date']= date
-
-            list_dict.append(dictionary)
-            print(doc)
-  
         
-        if list_dict==[]:
-            messages.info(request,'He not added anything on this date, May be he is in leave')
+            for doc in docs:
+                dictionary=doc.to_dict()
+                dictionary['nickname']= name
+                dictionary['state']= state
+                dictionary['district']= district
+                dictionary['id_user']= Marketing_staff_id
+
+                list_dict.append(dictionary)
+              
+
             html_template = loader.get_template( 'transactions.html' )
-            return HttpResponse(html_template.render({'context':''}, request)) 
+            return HttpResponse(html_template.render({'context':list_dict}, request))  
 
-   
+        if 'time_false' in request.POST:
+            state = request.POST['state']
+            time = request.POST['time_false']
+            name = request.POST['name']
+            district = request.POST['district']
+            date = request.POST['date']
+            Marketing_staff_id = request.POST['Marketing_staff_id']
 
+
+            col_ref = db.collection('adminData').document(state).collection(district).document(date).collection(Marketing_staff_id)
+            col_reff = col_ref.get()
+
+            state_dist= state+': '+ district
+            
+            col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
+            # col_reff2 = col_ref2.get()
+
+            for item in col_reff:
+                if item.id == time:
+                    doc = col_ref.document(item.id)
+                    doc2 = col_ref2.document(item.id)
+
+                    field_updates = {"isVerified": True}
+                    doc.update(field_updates)
+                    doc2.update(field_updates)
+
+            docs_ref = db.collection('adminData').document(state).collection(district).document(date).collection(Marketing_staff_id)
+            docs = docs_ref.get()
+        
+            list_dict=[]
+
+        
+            for doc in docs:
+                dictionary=doc.to_dict()
+                dictionary['nickname']= name
+                dictionary['state']= state
+                dictionary['district']= district
+                dictionary['id_user']= Marketing_staff_id
+
+                list_dict.append(dictionary)
+              
+
+            html_template = loader.get_template( 'transactions.html' )
+            return HttpResponse(html_template.render({'context':list_dict}, request))    
+
+        if 'name1' in request.POST:
+            state = request.POST['state']
+
+            name = request.POST['name1']
+            district = request.POST['district']
+            date = request.POST['date']
+
+            if date == '':
+                messages.info(request,'No items available for this date, pls verify the date')
+                html_template = loader.get_template( 'transactions.html' )
+                return HttpResponse(html_template.render({'context':''}, request)) 
+                
+
+            date_=date.split('-')
+            date_org= date_[2]+'-'+date_[1]+'-'+date_[0]
+            
+            Marketing_staff_id = request.POST['Marketing_staff_id']
+        
+
+
+            docs_ref = db.collection('adminData').document(state).collection(district).document(date_org).collection(Marketing_staff_id)
+            docs = docs_ref.get()
+        
+            list_dict=[]
+
+        
+            for doc in docs:
+                dictionary=doc.to_dict()
+                dictionary['nickname']= name
+                dictionary['state']= state
+                dictionary['district']= district
+                dictionary['id_user']= Marketing_staff_id
+
+                list_dict.append(dictionary)
+                print(doc)
+    
+            
+            if list_dict==[]:
+                messages.info(request,'He not added anything on this date, May be he is in leave')
+                html_template = loader.get_template( 'transactions.html' )
+                return HttpResponse(html_template.render({'context':''}, request)) 
+        
         html_template = loader.get_template( 'transactions.html' )
         return HttpResponse(html_template.render({'context':list_dict}, request))   
+
+    
     
 
 @login_required(login_url="/login/")
