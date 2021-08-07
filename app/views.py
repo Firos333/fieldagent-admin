@@ -70,7 +70,7 @@ def staffs(request):
     for doc in docs:
         dictionary =doc.to_dict()
         list1.append(dictionary)
-        print(list1)
+   
 
 
     html_template = loader.get_template( 'complete_users.html' )
