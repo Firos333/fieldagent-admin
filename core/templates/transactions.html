@@ -73,6 +73,7 @@
             };  
             var y = 20;  
             doc.setLineWidth(2);  
+            doc.text("Performance Analysis of "+name+ " on "+ date, 225, 20);
           
             doc.autoTable({  
                 html: '#tblCustomers',  
@@ -80,6 +81,7 @@
                 theme: 'grid',  
                
             })  
+            
             doc.save(name + " orders on "+ date + ".pdf");  
         }  
         </script>  
