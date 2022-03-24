@@ -14,3 +14,4 @@ pyrebase4
 firebase-admin
 psycopg2==2.8
 pandas
+PyJWT==1.7.1
