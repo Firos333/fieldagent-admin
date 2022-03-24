@@ -13,3 +13,4 @@ pyrebase
 pyrebase4
 firebase-admin
 psycopg2==2.8
+pandas
