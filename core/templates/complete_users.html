@@ -63,7 +63,9 @@
                   <th>Name</th>
                   <th>Photo</th>						
                   <th>District</th>
-                  <th>ID</th>
+                  <!-- <th>ID</th> -->
+                  <th>Taluk</th>
+                  <th>Verification</th>
                  
               </tr>
           </thead>
@@ -86,11 +88,25 @@
                 
               
                   <td><span class="fw-bold">   {{item.district}}</span></td>
-                  <td><span class="fw-bold">   {{item.id}}</span></td>
-               
-                  <td>
+                  <td><span class="fw-bold">   {{item.taluk}}</span></td>
+                  {% if item.verified == True %}
+                  <form action="staffs" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="name" name="name" value="{{item.nickname}}">
+                    <input type="hidden" id="id_true" name="id_true" value="{{item.id}}">
+                  <td><button type="submit" id="Verified" style="color: green" onclick="return confirm('Are you sure to proceed with Not Verified tag?')"> &nbsp;&nbsp; Verified &nbsp;&nbsp;</button></td>
+                </form>
+                  {% else %}
+                  <form action="staffs" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="name" name="name" value="{{item.nickname}}">
+                    <input type="hidden" id="id_false" name="id_false" value="{{item.id}}">
+                  <td><button type="submit" id="notVerified" style="color: red" onclick="return confirm('Are you sure to proceed with Verify this user?')"> Not Verified</button></td>
+                </form>
+                  {% endif %}
                 
                   </td>
+
                   <div id="dialog" title="Select date" style="display:none">
               
                         <div class="modal-body" id="wrapper">

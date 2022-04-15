@@ -60,9 +60,36 @@ def index(request):
     html_template = loader.get_template( 'dashboard.html' )
     return HttpResponse(html_template.render(context, request))
 
+
 @user_passes_test(lambda u: u.is_staff)
 @login_required(login_url="/login/")
 def staffs(request):
+
+    if request.method == 'POST':
+      
+        if 'id_true' in request.POST:
+  
+            id = request.POST['id_true']
+            name = request.POST['name']
+         
+            doc = db.collection('users').document(id)
+            
+            field_updates = {"verified": False}
+            doc.update(field_updates)
+
+          
+            
+  
+
+        if 'id_false' in request.POST:
+  
+            id = request.POST['id_false']
+            name = request.POST['name']
+         
+            doc = db.collection('users').document(id)
+            
+            field_updates = {"verified": True}
+            doc.update(field_updates)
 
  
     docs_ref = db.collection('users')
@@ -113,7 +140,7 @@ def search(request):
             state_dist= state+': '+ district
             
             col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
-            print(col_ref2)
+            # print(col_ref2)
 
             for item in col_reff:
                 if item.id == time:
