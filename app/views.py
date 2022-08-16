@@ -139,17 +139,17 @@ def search(request):
 
             state_dist= state+': '+ district
             
-            col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
+            #col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
             # print(col_ref2)
 
             for item in col_reff:
                 if item.id == time:
                     doc = col_ref.document(item.id)
-                    doc2 = col_ref2.document(date_time)
+                    #doc2 = col_ref2.document(date_time)
 
                     field_updates = {"isVerified": False}
                     doc.update(field_updates)
-                    doc2.update(field_updates)
+                    #doc2.update(field_updates)
 
             date_1=date1.split('-')
             date_start= date_1[2]+'-'+date_1[1]+'-'+date_1[0]
@@ -255,17 +255,17 @@ def search(request):
 
             state_dist= state+': '+ district
             
-            col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
+            #col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
             
 
             for item in col_reff:
                 if item.id == time:
                     doc = col_ref.document(item.id)
-                    doc2 = col_ref2.document(date_time)
+                    #doc2 = col_ref2.document(date_time)
 
                     field_updates = {"isVerified": True}
                     doc.update(field_updates)
-                    doc2.update(field_updates)
+                    #doc2.update(field_updates)
 
             date_1=date1.split('-')
             date_start= date_1[2]+'-'+date_1[1]+'-'+date_1[0]
@@ -369,17 +369,17 @@ def search(request):
 
             state_dist= state+': '+ district
             
-            col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
+            #col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
             # col_reff2 = col_ref2.get()
 
             for item in col_reff:
                 if item.id == time:
                     doc = col_ref.document(item.id)
-                    doc2 = col_ref2.document(date_time)
+                    #doc2 = col_ref2.document(date_time)
 
                     field_updates = {"isPaid": False}
                     doc.update(field_updates)
-                    doc2.update(field_updates)
+                    #doc2.update(field_updates)
 
             date_1=date1.split('-')
             date_start= date_1[2]+'-'+date_1[1]+'-'+date_1[0]
@@ -477,17 +477,17 @@ def search(request):
 
             state_dist= state+': '+ district
             
-            col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
+            #col_ref2 = db.collection('fielddata').document(state_dist).collection(Marketing_staff_id)
             # col_reff2 = col_ref2.get()
 
             for item in col_reff:
                 if item.id == time:
                     doc = col_ref.document(item.id)
-                    doc2 = col_ref2.document(date_time)
+                    #doc2 = col_ref2.document(date_time)
 
                     field_updates = {"isPaid": True}
                     doc.update(field_updates)
-                    doc2.update(field_updates)
+                    #doc2.update(field_updates)
 
             
             if date1 == '' or date2 == '':
