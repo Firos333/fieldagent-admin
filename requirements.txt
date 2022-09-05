@@ -1,6 +1,6 @@
 asgiref
 autopep8
-django==2.2.10
+django
 pycodestyle
 pytz
 sqlparse
@@ -12,6 +12,5 @@ whitenoise
 pyrebase
 pyrebase4
 firebase-admin
-psycopg2==2.8
 pandas
 PyJWT==1.7.1
